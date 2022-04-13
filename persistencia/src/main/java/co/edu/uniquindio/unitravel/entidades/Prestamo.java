@@ -1,60 +1,39 @@
 package co.edu.uniquindio.unitravel.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class Prestamo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int codigo;
 
+    @Column(nullable = false)
     private LocalDate fechaPrestamo;
+
+    @Future
+    @Column(nullable = false)
     private LocalDate fechaDevolucion;
 
-    public Prestamo() {
-    }
+    @ManyToMany
+    private List<Libro> libros;
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public LocalDate getFechaPrestamo() {
-        return fechaPrestamo;
-    }
-
-    public void setFechaPrestamo(LocalDate fechaPrestamo) {
-        this.fechaPrestamo = fechaPrestamo;
-    }
-
-    public LocalDate getFechaDevolucion() {
-        return fechaDevolucion;
-    }
-
-    public void setFechaDevolucion(LocalDate fechaDevolucion) {
-        this.fechaDevolucion = fechaDevolucion;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Prestamo prestamo = (Prestamo) o;
-        return codigo == prestamo.codigo;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
-    }
+    @ManyToOne
+    private Usuario persona;
 }
