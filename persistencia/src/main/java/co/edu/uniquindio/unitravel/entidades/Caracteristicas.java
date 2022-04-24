@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 
-public class Ciudad implements Serializable {
+public class Caracteristicas implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
@@ -24,17 +25,8 @@ public class Ciudad implements Serializable {
     @Column(nullable = false,length = 100)
     private String nombre;
 
-    public Ciudad(String codigo, String nombre) {
+    public Caracteristicas(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
     }
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<Cliente> clientes;
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<Hotel> hoteles;
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<Vehiculo> vehiculos;
 }

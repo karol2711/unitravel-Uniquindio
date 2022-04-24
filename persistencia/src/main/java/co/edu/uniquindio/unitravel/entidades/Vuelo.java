@@ -15,26 +15,31 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 
-public class Ciudad implements Serializable {
+public class Vuelo implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
 
     @Column(nullable = false,length = 100)
-    private String nombre;
+    private String estado;
 
-    public Ciudad(String codigo, String nombre) {
+    @Column(nullable = false,length = 100)
+    private String aerolinea;
+
+    public Vuelo(String codigo, String estado, String aerolinea) {
         this.codigo = codigo;
-        this.nombre = nombre;
+        this.estado = estado;
+        this.aerolinea = aerolinea;
     }
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Cliente> clientes;
+    @ManyToOne
+    private Ciudad ciudadOrigen;
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Hotel> hoteles;
+    @ManyToOne
+    private Ciudad ciudadDestino;
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Vehiculo> vehiculos;
+    @OneToMany(mappedBy = "vuelo")
+    private List<Silla> sillas;
+
 }

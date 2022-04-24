@@ -15,26 +15,29 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 
-public class Ciudad implements Serializable {
+public class Silla implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
 
     @Column(nullable = false,length = 100)
-    private String nombre;
+    private String posicion;
 
-    public Ciudad(String codigo, String nombre) {
+    @Column(nullable = false)
+    private Float precio;
+
+    public Silla(String codigo, String posicion, Float precio) {
         this.codigo = codigo;
-        this.nombre = nombre;
+        this.posicion = posicion;
+        this.precio = precio;
     }
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Cliente> clientes;
+    @OneToMany(mappedBy = "silla")
+    private List<ReservaSilla> sillas;
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Hotel> hoteles;
+    @ManyToOne
+    private Vuelo vuelo;
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Vehiculo> vehiculos;
+
 }
