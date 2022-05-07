@@ -8,5 +8,4 @@ import co.edu.uniquindio.unitravel.entidades.Cliente;
 public interface UsuarioRepo extends JpaRepository<Cliente, String> {
 
 
-
 }
